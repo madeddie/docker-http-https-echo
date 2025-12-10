@@ -3,6 +3,8 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mendhak/docker-http-https-echo/build.yml?color=darkgreen&style=for-the-badge&branch=master)](https://github.com/mendhak/docker-http-https-echo/actions?query=workflow%3ABuild)
 
 
+[FORK FOR TEST AND PLAY]
+
 `mendhak/http-https-echo` is a Docker image that can echo various HTTP request properties back to client in the response, as well as in the Docker container logs.
 It comes with various options that can manipulate the response output, see the table of contents for a full list.
 
