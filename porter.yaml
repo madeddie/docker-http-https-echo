@@ -1,0 +1,25 @@
+version: v2
+name: docker-http-https-echo
+services:
+- name: web
+  run: ""
+  type: web
+  instances: 1
+  cpuCores: 0.2
+  ramMegabytes: 512
+  terminationGracePeriodSeconds: 30
+  port: 8080
+  autoscaling:
+    enabled: true
+    minInstances: 1
+    maxInstances: 10
+    gpu: false
+    cpuThresholdPercent: 80
+    memoryThresholdPercent: 80
+    gpuThresholdPercent: 0
+    vramThresholdPercent: 0
+  sleep: false
+build:
+  context: ./
+  method: docker
+  dockerfile: Dockerfile
