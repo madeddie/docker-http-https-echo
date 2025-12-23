@@ -1,0 +1,27 @@
+"on":
+    workflow_dispatch:
+name: Test docker hub auth
+permissions:
+  contents: read
+jobs:
+    porter-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setup porter
+              uses: porter-dev/setup-porter@82aae6b91417e2a4e6cd4a1f6bd123fd316bd188 # v0.1.0
+            - name: Log in to Docker Hardened Images registry
+              uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+              with:
+                registry: dhi.io
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_PASSWORD }}
+            - name: Export Docker auth for Porter builds
+              run: |
+                echo "Registry keys in config.json:"
+                jq -r '.auths | keys[]' "$HOME/.docker/config.json"
+                AUTH_JSON=$(jq -c . "$HOME/.docker/config.json")
+                # echo "DOCKER_AUTH_CONFIG=$AUTH_JSON" >> "$GITHUB_ENV"
+                # echo "PORTER_DOCKER_AUTH_CONFIG=$AUTH_JSON" >> "$GITHUB_ENV"
+            - name: test docker auth
+              run: |
+                docker pull dhi.io/python:3.10-alpine3.22
